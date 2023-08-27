@@ -992,8 +992,11 @@ export def DocSymbolPopup(lspserver: dict<any>, docSymbol: any, fname: string)
     GetSymbolsDocSymbol(lspserver, bnr, docSymbol, symList)
   endif
 
-  :redraw!
-  SymbolPopupMenu(symList)
+  symList->map((_, sym) => {
+    sym.uri = fname
+    return sym
+  })
+  ShowLocations(lspserver, symList, false, 'Workspace Symbol References')
 enddef
 
 # vim: tabstop=8 shiftwidth=2 softtabstop=2

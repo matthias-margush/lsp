@@ -1536,7 +1536,14 @@ def WorkspaceQuerySymbols(lspserver: dict<any>, query: string, firstCall: bool, 
       symbol.GotoSymbol(lspserver, symLoc, false, cmdmods)
     endif
   else
-    symbol.WorkspaceSymbolPopup(lspserver, query, symInfo, cmdmods)
+    symInfo->map((_, sym) => {
+      if sym->has_key('location')
+	lspserver.decodeLocation(sym.location)
+        return sym.location
+      endif
+      return sym
+    })
+    symbol.ShowLocations(lspserver, symInfo, false, 'Workspace Symbol References')
   endif
 enddef
 
