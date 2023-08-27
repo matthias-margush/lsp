@@ -405,7 +405,7 @@ export def DiagNotification(lspserver: dict<any>, uri: string, diags_arg: list<d
 
   var newDiags: list<dict<any>> = diags_arg
 
-  if lspserver.needOffsetEncoding
+  if get(lspserver, 'needOffsetEncoding', false)
     # Decode the position encoding in all the diags
     newDiags->map((_, dval) => {
 	lspserver.decodeRange(bnr, dval.range)
