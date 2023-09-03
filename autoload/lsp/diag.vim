@@ -576,7 +576,6 @@ export def ShowAllDiags(): void
   var LspQfId: number = bnr->getbufvar('LspQfId', 0)
   var LspQfNr: number = getloclist(0, {id: LspQfId, nr: 0}).nr
   exe $':{LspQfNr} lhistory'
-  :lopen
   if !opt.lspOptions.keepFocusInDiags
     save_winid->win_gotoid()
   endif
